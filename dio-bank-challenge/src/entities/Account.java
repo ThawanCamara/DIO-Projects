@@ -10,13 +10,21 @@ public abstract class Account implements IAccount{
 	protected int agency;
 	protected int number;
 	protected double balance;
-	
+	private Client owner;
 
 	public Account() {
-		this.agency = Account.STANDARD_AGENCY;
-		this.number = SEQUENCE++;
 	}
 	
+	public Account(Client owner) {
+		this.agency = Account.STANDARD_AGENCY;
+		this.number = SEQUENCE++;
+		this.owner = owner;
+	}
+	
+	public Client getOwner() {
+		return owner;
+	}
+
 	public int getagency() {
 		return agency;
 	}
@@ -46,5 +54,12 @@ public abstract class Account implements IAccount{
 	public void transfer(double value, Account targetAccount) {
 		this.withdraw(value);
 		targetAccount.deposit(value);
+	}
+	
+	protected void printAccountInfo() {
+		System.out.println(String.format("Owner: %s", owner.getName()));
+		System.out.println(String.format("Agency: %d", agency));
+		System.out.println(String.format("Number: %d", number));
+		System.out.println(String.format("Balance: %.2f", balance));
 	}
 }
