@@ -26,7 +26,7 @@ public class Course extends Content {
 	}
 
 	@Override
-	public double calcularXP() {
+	public double calculateXP() {
 		return DEFAULT_XP * workload;
 	}
 	

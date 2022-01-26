@@ -2,12 +2,13 @@ package br.com.dio.challenge.entities;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Dev {
 	private String name;
-	private Set<Content> subscribedContent = new LinkedHashSet<>();
-	private Set<Content> completedContent = new LinkedHashSet<>();
+	private Set<Content> subscribedContents = new LinkedHashSet<>();
+	private Set<Content> completedContents = new LinkedHashSet<>();
 	
 	public String getName() {
 		return name;
@@ -18,36 +19,48 @@ public class Dev {
 	}
 
 	public Set<Content> getSubscribedContent() {
-		return subscribedContent;
+		return subscribedContents;
 	}
 
 	public void setSubscribedContent(Set<Content> subscribedContent) {
-		this.subscribedContent = subscribedContent;
+		this.subscribedContents = subscribedContent;
 	}
 
 	public Set<Content> getCompletedContent() {
-		return completedContent;
+		return completedContents;
 	}
 
 	public void setCompletedContent(Set<Content> completedContent) {
-		this.completedContent = completedContent;
+		this.completedContents = completedContent;
 	}
 
 	public void subscribeBootcamp(Bootcamp bootcamp) {
-		
+		this.subscribedContents.addAll(bootcamp.getContents());
+		bootcamp.getSubscribedDevs().add(this);
 	}
 	
 	public void progress() {
-		
+		Optional<Content> content = this.subscribedContents.stream().findFirst();
+		if (content.isPresent()) {
+			this.completedContents.add(content.get());
+			this.subscribedContents.remove(content.get());
+		}
+		else {
+			System.err.println("You are not subscribed to any content!");
+		}
+			
 	}
 	
-	public void calculateTotal() {
-		
+	public double calculateTotalXP() {
+		return this.completedContents
+				.stream()
+				.mapToDouble(Content::calculateXP)
+				.sum();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(completedContent, name, subscribedContent);
+		return Objects.hash(completedContents, name, subscribedContents);
 	}
 
 	@Override
@@ -59,8 +72,8 @@ public class Dev {
 		if (getClass() != obj.getClass())
 			return false;
 		Dev other = (Dev) obj;
-		return Objects.equals(completedContent, other.completedContent) && Objects.equals(name, other.name)
-				&& Objects.equals(subscribedContent, other.subscribedContent);
+		return Objects.equals(completedContents, other.completedContents) && Objects.equals(name, other.name)
+				&& Objects.equals(subscribedContents, other.subscribedContents);
 	}
 	
 }

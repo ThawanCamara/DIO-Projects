@@ -30,7 +30,7 @@ public class Mentorship extends Content {
 	}
 
 	@Override
-	public double calcularXP() {
+	public double calculateXP() {
 		return DEFAULT_XP + 20;
 	}
 	
