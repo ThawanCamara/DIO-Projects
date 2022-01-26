@@ -2,6 +2,7 @@ package br.com.dio.challenge.application;
 
 import java.time.LocalDate;
 
+import br.com.dio.challenge.entities.Content;
 import br.com.dio.challenge.entities.Course;
 import br.com.dio.challenge.entities.Mentorship;
 
@@ -17,7 +18,7 @@ public class Program {
 		course2.setTitle("JS Course");
 		course2.setDescription("JS course description");
 		course2.setWorkload(4);
-		
+
 		Mentorship mentorship = new Mentorship();
 		mentorship.setTitle("Java mentorship");
 		mentorship.setDescription("Java mentorship description");

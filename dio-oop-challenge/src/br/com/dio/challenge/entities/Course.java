@@ -1,41 +1,33 @@
 package br.com.dio.challenge.entities;
 
-public class Course {
-	private String title;
-	private String description;
+public class Course extends Content {
+
 	private int workload;
 	
 	public Course() {
 	}
 	
 	public Course(String title, String description, int workload) {
-		this.title = title;
-		this.description = description;
+		super();
 		this.workload = workload;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public int getWorkload() {
 		return workload;
 	}
+	
 	public void setWorkload(int workload) {
 		this.workload = workload;
 	}
 
 	@Override
 	public String toString() {
-		return "Course [title=" + title + ", description=" + description + ", workload=" + workload + "]";
+		return "Course [title=" + getTitle() + ", description=" + getDescription() + ", workload=" + workload + "]";
+	}
+
+	@Override
+	public double calcularXP() {
+		return DEFAULT_XP * workload;
 	}
 	
 }
